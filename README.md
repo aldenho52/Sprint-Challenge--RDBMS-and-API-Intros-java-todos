@@ -1743,14 +1743,25 @@ STATUS OK
 
 ### Commits
 
-Commit your code regularly and meaningfully. This helps both you (in case you ever need to return to old code for any number of reasons) and your team lead as the evaluate your solution.
+Commit your code regularly and meaningfully. This helps both you (in case you ever need to return to old code for any number of reasons) and your team lead as the evaluate your solution. 
 
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. Can you explain your data model, data schema to me?
+
+My data model consisted of a users and todos. There was  a one to many relationship between users and todos and a many to one relationship from todos to users. Each user can have multiple todos but each todo has only one user. Each model had its own id, strings, descriptions, etc.
+
 2. Can you explain how you connected your API to a database?
+
+I connected my API to a database by first installing the correct dependencies such as H2 database and Spring JPA. I then made the adjustments to boilerplate code, set the route, etc. I manipulated the seedData to fit the todos model I generated to make sure all the appropriate functions were being called. After slight adjustments the data was populated correctly. I also had to change services of the todos to ensure they populated correctly.
+
 3. Can you explain the flow of data from client through the backend system and back to the client?
+
+The flow of data from the client to the backend starts with the client. The client interacts with the backend, the controller receives the input from the client and checks to see if it can be accepted. From there the controller uses the models and services to implement the client request and responds with a passing or failing.
+
 4. How did you handle querying in your application: custom querying vs JPA Querying?
+
+JPA QUerying for the most part. No custom querying was used as of right now. I will start the stretch soon so I will definitely be using custom querying for the counts problem.
 
 ## Instructions
 
