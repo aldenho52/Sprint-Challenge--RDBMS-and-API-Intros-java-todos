@@ -1,5 +1,6 @@
 package com.lambdaschool.todos;
 
+import com.github.javafaker.Faker;
 import com.lambdaschool.todos.models.Todo;
 import com.lambdaschool.todos.models.User;
 import com.lambdaschool.todos.services.TodosService;
@@ -8,6 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * SeedData puts both known and random data into the database. It implements CommandLineRunner.
@@ -27,6 +33,8 @@ public class SeedData implements CommandLineRunner
 
     @Autowired
     TodosService todosService;
+
+    private Random random = new Random();
 
     /**
      * Generates test, seed data for our application
@@ -85,5 +93,33 @@ public class SeedData implements CommandLineRunner
                            "password",
                            "misskitty@school.lambda");
         userService.save(u5);
+
+        // STRETCH GOAL FAKER DATA
+
+        Faker dataFaker = new Faker(new Locale("en-US"));
+
+        Set<String> userNames = new HashSet<>();
+        for (int i = 0; i < 100; i++)
+        {
+            userNames.add(dataFaker.harryPotter().character());
+        }
+
+        for (String name : userNames)
+        {
+
+            User newUser = new User(name,
+                dataFaker.internet()
+                    .password(),
+                dataFaker.internet().emailAddress());
+
+            int randomNumber = random.nextInt(4);
+            for (int i = 0; i < randomNumber; i++)
+            {
+                newUser.getTodos()
+                    .add(new Todo(newUser, dataFaker.harryPotter().quote()));
+            }
+
+            userService.save(newUser);
+        }
     }
 }
